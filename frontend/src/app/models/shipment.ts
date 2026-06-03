@@ -48,3 +48,10 @@ export const ALLOWED_TRANSITIONS: Record<ShipmentStatus, ShipmentStatus[]> = {
   [ShipmentStatus.Delivered]: [],
   [ShipmentStatus.Cancelled]: [],
 };
+
+export const STATUS_LABELS: Record<ShipmentStatus, string> = {
+  [ShipmentStatus.Pending]: 'Pending',
+  [ShipmentStatus.InTransit]: 'In Transit',
+  [ShipmentStatus.Delivered]: 'Delivered',
+  [ShipmentStatus.Cancelled]: 'Cancelled',
+};

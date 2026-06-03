@@ -38,16 +38,19 @@ export class ShipmentForm implements OnInit {
 
     const id = Number(idParam);
     this.editingId.set(id);
-    this.shipmentService.getById(id).subscribe((shipment) => {
-      this.form.patchValue({
-        origin: shipment.origin,
-        destination: shipment.destination,
-        carrier: shipment.carrier,
-        weightKg: shipment.weightKg,
-        estimatedDelivery: shipment.estimatedDelivery
-          ? shipment.estimatedDelivery.substring(0, 10)
-          : '',
-      });
+    this.shipmentService.getById(id).subscribe({
+      next: (shipment) => {
+        this.form.patchValue({
+          origin: shipment.origin,
+          destination: shipment.destination,
+          carrier: shipment.carrier,
+          weightKg: shipment.weightKg,
+          estimatedDelivery: shipment.estimatedDelivery
+            ? shipment.estimatedDelivery.substring(0, 10)
+            : '',
+        });
+      },
+      error: () => this.router.navigate(['/']),
     });
   }
 

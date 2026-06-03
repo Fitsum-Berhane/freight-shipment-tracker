@@ -11,7 +11,7 @@
   } @else if (shipment(); as s) {
     <header class="detail-header">
       <h2>{{ s.trackingNumber }}</h2>
-      <span [class]="badgeClass(s.status)">{{ s.status }}</span>
+      <span [class]="badgeClass(s.status)">{{ statusLabels[s.status] }}</span>
     </header>
 
     <dl class="detail-grid">
@@ -52,7 +52,7 @@
       <ol class="timeline">
         @for (entry of history(); track entry.changedAt) {
           <li>
-            <span [class]="badgeClass(entry.status)">{{ entry.status }}</span>
+            <span [class]="badgeClass(entry.status)">{{ statusLabels[entry.status] }}</span>
             <span class="timeline-date">{{ entry.changedAt | date: 'medium' }}</span>
           </li>
         }

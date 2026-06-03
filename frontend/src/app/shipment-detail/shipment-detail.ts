@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ShipmentService } from '../services/shipment.service';
-import { Shipment, StatusHistoryEntry } from '../models/shipment';
+import { Shipment, StatusHistoryEntry, STATUS_LABELS } from '../models/shipment';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -19,6 +19,7 @@ export class ShipmentDetail implements OnInit {
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
   readonly historyError = signal(false);
+  readonly statusLabels = STATUS_LABELS;
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));

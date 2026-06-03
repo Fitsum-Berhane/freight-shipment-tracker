@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ShipmentService, ShipmentFilters } from '../services/shipment.service';
-import { Shipment, ShipmentStatus, ALLOWED_TRANSITIONS } from '../models/shipment';
+import { Shipment, ShipmentStatus, ALLOWED_TRANSITIONS, STATUS_LABELS } from '../models/shipment';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +20,7 @@ export class Dashboard implements OnInit {
   readonly shipments = signal<Shipment[]>([]);
   readonly carriers = signal<string[]>([]);
   readonly statuses = Object.values(ShipmentStatus);
+  readonly statusLabels = STATUS_LABELS;
 
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
