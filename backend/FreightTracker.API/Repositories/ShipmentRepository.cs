@@ -24,7 +24,11 @@ public class ShipmentRepository : IShipmentRepository
             query = query.Where(s => s.Carrier == carrier);
 
         if (!string.IsNullOrWhiteSpace(search))
-            query = query.Where(s => s.Origin.Contains(search) || s.Destination.Contains(search));
+        {
+            var term = search.ToLower();
+            query = query.Where(s =>
+                s.Origin.ToLower().Contains(term) || s.Destination.ToLower().Contains(term));
+        }
 
         return await query.OrderByDescending(s => s.CreatedAt).ToListAsync();
     }
