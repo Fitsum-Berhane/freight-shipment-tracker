@@ -4,6 +4,28 @@
     <a routerLink="/new" class="new-button">+ New shipment</a>
   </header>
 
+  <div class="filters" [formGroup]="filterForm">
+    <input type="search" formControlName="search" placeholder="Search origin or destination" />
+
+    <select formControlName="status">
+      <option value="">All statuses</option>
+      @for (status of statuses; track status) {
+        <option [value]="status">{{ status }}</option>
+      }
+    </select>
+
+    <select formControlName="carrier">
+      <option value="">All carriers</option>
+      @for (carrier of carriers(); track carrier) {
+        <option [value]="carrier">{{ carrier }}</option>
+      }
+    </select>
+
+    @if (filterForm.value.search || filterForm.value.status || filterForm.value.carrier) {
+      <button type="button" class="clear-filters" (click)="clearFilters()">Clear</button>
+    }
+  </div>
+
   @if (shipments().length === 0) {
     <p class="empty">No shipments to show.</p>
   } @else {
