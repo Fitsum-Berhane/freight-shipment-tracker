@@ -36,6 +36,15 @@
             <td><span [class]="badgeClass(shipment.status)">{{ shipment.status }}</span></td>
             <td class="row-actions">
               <a [routerLink]="[shipment.id, 'edit']">Edit</a>
+              @if (allowedNext(shipment.status).length > 0) {
+                <select #sel class="status-select"
+                        (change)="changeStatus(shipment, sel.value); sel.value = ''">
+                  <option value="">Update status&hellip;</option>
+                  @for (next of allowedNext(shipment.status); track next) {
+                    <option [value]="next">Mark {{ next }}</option>
+                  }
+                </select>
+              }
             </td>
           </tr>
         }

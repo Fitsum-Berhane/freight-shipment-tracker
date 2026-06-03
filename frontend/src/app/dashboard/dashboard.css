@@ -24,6 +24,13 @@
   background: #1d4ed8;
 }
 
+.row-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
 .row-actions a {
   color: #2563eb;
   text-decoration: none;
@@ -32,6 +39,15 @@
 
 .row-actions a:hover {
   text-decoration: underline;
+}
+
+.status-select {
+  padding: 0.3rem 0.4rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  background: #fff;
+  cursor: pointer;
 }
 
 .empty {
