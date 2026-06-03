@@ -5,6 +5,33 @@
 
 .dashboard-header {
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.new-button {
+  background: #2563eb;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.new-button:hover {
+  background: #1d4ed8;
+}
+
+.row-actions a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.row-actions a:hover {
+  text-decoration: underline;
 }
 
 .empty {

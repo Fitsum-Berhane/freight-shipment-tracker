@@ -1,0 +1,74 @@
+.form-page {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.shipment-form {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.field {
+  margin-bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: #374151;
+}
+
+.field input {
+  padding: 0.55rem 0.65rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.error {
+  margin-top: 0.35rem;
+  color: #b91c1c;
+  font-size: 0.8rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.actions button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancel {
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.cancel:hover {
+  text-decoration: underline;
+}

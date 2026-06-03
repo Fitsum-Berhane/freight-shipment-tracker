@@ -1,6 +1,7 @@
 <section class="dashboard">
   <header class="dashboard-header">
     <h2>Shipments</h2>
+    <a routerLink="/new" class="new-button">+ New shipment</a>
   </header>
 
   @if (shipments().length === 0) {
@@ -15,6 +16,7 @@
           <th>Weight (kg)</th>
           <th>Est. delivery</th>
           <th>Status</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -32,6 +34,9 @@
               }
             </td>
             <td><span [class]="badgeClass(shipment.status)">{{ shipment.status }}</span></td>
+            <td class="row-actions">
+              <a [routerLink]="[shipment.id, 'edit']">Edit</a>
+            </td>
           </tr>
         }
       </tbody>

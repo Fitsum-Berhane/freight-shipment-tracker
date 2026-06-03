@@ -1,0 +1,61 @@
+<section class="form-page">
+  <h2>{{ isEditMode ? 'Edit shipment' : 'New shipment' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="shipment-form">
+    <div class="field">
+      <label for="origin">Origin</label>
+      <input id="origin" type="text" formControlName="origin" />
+      @if (form.controls.origin.touched && form.controls.origin.invalid) {
+        <div class="error">
+          @if (form.controls.origin.errors?.['required']) { Origin is required. }
+          @if (form.controls.origin.errors?.['maxlength']) { Origin must be 100 characters or fewer. }
+        </div>
+      }
+    </div>
+
+    <div class="field">
+      <label for="destination">Destination</label>
+      <input id="destination" type="text" formControlName="destination" />
+      @if (form.controls.destination.touched && form.controls.destination.invalid) {
+        <div class="error">
+          @if (form.controls.destination.errors?.['required']) { Destination is required. }
+          @if (form.controls.destination.errors?.['maxlength']) { Destination must be 100 characters or fewer. }
+        </div>
+      }
+    </div>
+
+    <div class="field">
+      <label for="carrier">Carrier</label>
+      <input id="carrier" type="text" formControlName="carrier" />
+      @if (form.controls.carrier.touched && form.controls.carrier.invalid) {
+        <div class="error">
+          @if (form.controls.carrier.errors?.['required']) { Carrier is required. }
+          @if (form.controls.carrier.errors?.['maxlength']) { Carrier must be 100 characters or fewer. }
+        </div>
+      }
+    </div>
+
+    <div class="field">
+      <label for="weightKg">Weight (kg)</label>
+      <input id="weightKg" type="number" step="0.01" formControlName="weightKg" />
+      @if (form.controls.weightKg.touched && form.controls.weightKg.invalid) {
+        <div class="error">
+          @if (form.controls.weightKg.errors?.['required']) { Weight is required. }
+          @if (form.controls.weightKg.errors?.['min']) { Weight must be greater than 0. }
+        </div>
+      }
+    </div>
+
+    <div class="field">
+      <label for="estimatedDelivery">Estimated delivery (optional)</label>
+      <input id="estimatedDelivery" type="date" formControlName="estimatedDelivery" />
+    </div>
+
+    <div class="actions">
+      <button type="submit" [disabled]="submitting()">
+        {{ isEditMode ? 'Save changes' : 'Create shipment' }}
+      </button>
+      <a routerLink="/" class="cancel">Cancel</a>
+    </div>
+  </form>
+</section>
