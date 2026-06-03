@@ -57,4 +57,9 @@ public class ShipmentRepository : IShipmentRepository
     {
         return await _context.Shipments.AnyAsync(s => s.TrackingNumber == trackingNumber);
     }
+
+    public async Task<int> CountAsync()
+    {
+        return await _context.Shipments.CountAsync();
+    }
 }

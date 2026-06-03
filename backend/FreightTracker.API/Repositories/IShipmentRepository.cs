@@ -10,4 +10,5 @@ public interface IShipmentRepository
     Task UpdateAsync(Shipment shipment);
     Task DeleteAsync(Shipment shipment);
     Task<bool> TrackingNumberExistsAsync(string trackingNumber);
+    Task<int> CountAsync();
 }
