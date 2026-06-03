@@ -40,5 +40,18 @@ export class Dashboard implements OnInit {
         );
       });
   }
+
+  deleteShipment(shipment: Shipment): void {
+    const confirmed = confirm(
+      `Delete shipment ${shipment.trackingNumber}? This cannot be undone.`,
+    );
+    if (!confirmed) {
+      return;
+    }
+
+    this.shipmentService.delete(shipment.id).subscribe(() => {
+      this.shipments.update((list) => list.filter((s) => s.id !== shipment.id));
+    });
+  }
 }
 
