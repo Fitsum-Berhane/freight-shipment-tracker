@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
@@ -19,6 +20,10 @@ export class Dashboard implements OnInit {
   readonly shipments = signal<Shipment[]>([]);
   readonly carriers = signal<string[]>([]);
   readonly statuses = Object.values(ShipmentStatus);
+
+  readonly loading = signal(false);
+  readonly error = signal<string | null>(null);
+  readonly actionError = signal<string | null>(null);
 
   readonly filterForm = this.fb.group({
     search: [''],
@@ -42,6 +47,10 @@ export class Dashboard implements OnInit {
     this.filterForm.reset({ search: '', status: '', carrier: '' });
   }
 
+  dismissActionError(): void {
+    this.actionError.set(null);
+  }
+
   private loadShipments(): void {
     const { search, status, carrier } = this.filterForm.value;
     const filters: ShipmentFilters = {
@@ -49,7 +58,30 @@ export class Dashboard implements OnInit {
       status: status ? (status as ShipmentStatus) : undefined,
       carrier: carrier || undefined,
     };
-    this.shipmentService.getAll(filters).subscribe((data) => this.shipments.set(data));
+
+    this.loading.set(true);
+    this.error.set(null);
+    this.shipmentService.getAll(filters).subscribe({
+      next: (data) => {
+        this.shipments.set(data);
+        this.loading.set(false);
+      },
+      error: (err) => {
+        this.error.set(this.extractError(err));
+        this.loading.set(false);
+      },
+    });
+  }
+
+  private extractError(err: unknown): string {
+    const httpError = err as HttpErrorResponse;
+    if (httpError?.error?.message) {
+      return httpError.error.message;
+    }
+    if (httpError?.status === 0) {
+      return 'Cannot reach the server. Make sure the API is running.';
+    }
+    return 'Something went wrong. Please try again.';
   }
 
   private loadCarriers(): void {
@@ -84,10 +116,14 @@ export class Dashboard implements OnInit {
 
     this.shipmentService
       .updateStatus(shipment.id, { status: newStatus as ShipmentStatus })
-      .subscribe((updated) => {
-        this.shipments.update((list) =>
-          list.map((s) => (s.id === updated.id ? updated : s)),
-        );
+      .subscribe({
+        next: (updated) => {
+          this.actionError.set(null);
+          this.shipments.update((list) =>
+            list.map((s) => (s.id === updated.id ? updated : s)),
+          );
+        },
+        error: (err) => this.actionError.set(this.extractError(err)),
       });
   }
 
@@ -99,8 +135,12 @@ export class Dashboard implements OnInit {
       return;
     }
 
-    this.shipmentService.delete(shipment.id).subscribe(() => {
-      this.shipments.update((list) => list.filter((s) => s.id !== shipment.id));
+    this.shipmentService.delete(shipment.id).subscribe({
+      next: () => {
+        this.actionError.set(null);
+        this.shipments.update((list) => list.filter((s) => s.id !== shipment.id));
+      },
+      error: (err) => this.actionError.set(this.extractError(err)),
     });
   }
 }

@@ -26,7 +26,21 @@
     }
   </div>
 
-  @if (shipments().length === 0) {
+  @if (actionError(); as msg) {
+    <div class="action-banner">
+      <span>{{ msg }}</span>
+      <button type="button" class="banner-close" (click)="dismissActionError()">&times;</button>
+    </div>
+  }
+
+  @if (loading()) {
+    <div class="loading">
+      <span class="spinner"></span>
+      Loading shipments&hellip;
+    </div>
+  } @else if (error()) {
+    <div class="load-error">{{ error() }}</div>
+  } @else if (shipments().length === 0) {
     <p class="empty">No shipments to show.</p>
   } @else {
     <table class="shipment-table">
