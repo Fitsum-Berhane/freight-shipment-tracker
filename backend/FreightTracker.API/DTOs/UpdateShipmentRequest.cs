@@ -2,9 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FreightTracker.API.DTOs;
 
-// What a client sends to UPDATE a shipment's details (PUT).
-// Same editable fields as create. Status is NOT here — it has its own PATCH endpoint
-// so the transition rule can be enforced separately.
 public class UpdateShipmentRequest
 {
     [Required]

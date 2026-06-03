@@ -1,6 +1,16 @@
+using FreightTracker.API.Data;
+using FreightTracker.API.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? "Data Source=freight.db"));
+
+builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 
 builder.Services.AddCors(options =>
 {
@@ -13,6 +23,12 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.EnsureCreated();
+}
 
 app.UseCors("AllowAngularDev");
 app.UseAuthorization();

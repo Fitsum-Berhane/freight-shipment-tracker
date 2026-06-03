@@ -2,9 +2,6 @@ using FreightTracker.API.Models;
 
 namespace FreightTracker.API.DTOs;
 
-// What the API sends BACK to the client.
-// Includes the server-controlled fields (Id, TrackingNumber, Status, CreatedAt)
-// that the request DTOs deliberately leave out.
 public class ShipmentResponse
 {
     public int Id { get; set; }
