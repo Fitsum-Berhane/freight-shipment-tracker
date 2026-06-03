@@ -32,6 +32,16 @@ export class Dashboard implements OnInit {
       return;
     }
 
+    const isTerminal =
+      newStatus === ShipmentStatus.Delivered || newStatus === ShipmentStatus.Cancelled;
+    const message = isTerminal
+      ? `Mark ${shipment.trackingNumber} as ${newStatus}? This is final and can't be changed afterwards.`
+      : `Change ${shipment.trackingNumber} status to ${newStatus}?`;
+
+    if (!confirm(message)) {
+      return;
+    }
+
     this.shipmentService
       .updateStatus(shipment.id, { status: newStatus as ShipmentStatus })
       .subscribe((updated) => {
