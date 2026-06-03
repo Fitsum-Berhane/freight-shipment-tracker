@@ -1,5 +1,6 @@
 using FreightTracker.API.Data;
 using FreightTracker.API.Repositories;
+using FreightTracker.API.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         ?? "Data Source=freight.db"));
 
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
+builder.Services.AddSingleton<IShipmentStatusService, ShipmentStatusService>();
 
 builder.Services.AddCors(options =>
 {
