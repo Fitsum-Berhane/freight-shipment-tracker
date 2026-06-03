@@ -44,7 +44,9 @@
     </dl>
 
     <h3>Status history</h3>
-    @if (history().length === 0) {
+    @if (historyError()) {
+      <p class="load-error">Could not load status history.</p>
+    } @else if (history().length === 0) {
       <p class="empty">No history recorded.</p>
     } @else {
       <ol class="timeline">

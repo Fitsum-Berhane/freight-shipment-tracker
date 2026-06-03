@@ -18,6 +18,7 @@ export class ShipmentDetail implements OnInit {
   readonly history = signal<StatusHistoryEntry[]>([]);
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
+  readonly historyError = signal(false);
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -35,6 +36,7 @@ export class ShipmentDetail implements OnInit {
 
     this.shipmentService.getStatusHistory(id).subscribe({
       next: (history) => this.history.set(history),
+      error: () => this.historyError.set(true),
     });
   }
 
