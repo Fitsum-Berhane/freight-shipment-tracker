@@ -41,6 +41,12 @@ public class ShipmentService : IShipmentService
             CreatedAt = DateTime.UtcNow
         };
 
+        shipment.StatusHistory.Add(new ShipmentStatusHistory
+        {
+            Status = shipment.Status,
+            ChangedAt = shipment.CreatedAt,
+        });
+
         await _repository.AddAsync(shipment);
         return ToResponse(shipment);
     }
@@ -72,8 +78,26 @@ public class ShipmentService : IShipmentService
                 $"Cannot change status from {shipment.Status} to {newStatus}.");
 
         shipment.Status = newStatus;
+        shipment.StatusHistory.Add(new ShipmentStatusHistory
+        {
+            Status = newStatus,
+            ChangedAt = DateTime.UtcNow,
+        });
+
         await _repository.UpdateAsync(shipment);
         return ToResponse(shipment);
+    }
+
+    public async Task<List<StatusHistoryResponse>?> GetStatusHistoryAsync(int id)
+    {
+        var shipment = await _repository.GetByIdAsync(id);
+        if (shipment is null)
+            return null;
+
+        var history = await _repository.GetStatusHistoryAsync(id);
+        return history
+            .Select(h => new StatusHistoryResponse { Status = h.Status, ChangedAt = h.ChangedAt })
+            .ToList();
     }
 
     public async Task<bool> DeleteAsync(int id)

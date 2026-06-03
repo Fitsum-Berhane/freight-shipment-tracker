@@ -19,4 +19,5 @@ public class Shipment
     public ShipmentStatus Status { get; set; } = ShipmentStatus.Pending;
     public DateTime? EstimatedDelivery { get; set; }
     public DateTime CreatedAt { get; set; }
+    public List<ShipmentStatusHistory> StatusHistory { get; set; } = new();
 }

@@ -99,45 +99,6 @@
   background: #f3f4f6;
 }
 
-.empty {
-  color: #6b7280;
-  padding: 2rem 0;
-  text-align: center;
-}
-
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  padding: 2.5rem 0;
-  color: #6b7280;
-}
-
-.spinner {
-  width: 18px;
-  height: 18px;
-  border: 3px solid #d1d5db;
-  border-top-color: #2563eb;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.load-error {
-  padding: 1.5rem;
-  text-align: center;
-  color: #991b1b;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  border-radius: 8px;
-}
-
 .action-banner {
   display: flex;
   align-items: center;
@@ -192,30 +153,12 @@
   background: #fafbfc;
 }
 
-.badge {
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
+.tracking-link {
+  color: #2563eb;
+  text-decoration: none;
   font-weight: 600;
 }
 
-.badge-pending {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.badge-intransit {
-  background: #dbeafe;
-  color: #1e40af;
-}
-
-.badge-delivered {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.badge-cancelled {
-  background: #fee2e2;
-  color: #991b1b;
+.tracking-link:hover {
+  text-decoration: underline;
 }

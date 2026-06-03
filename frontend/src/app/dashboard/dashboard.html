@@ -58,7 +58,7 @@
       <tbody>
         @for (shipment of shipments(); track shipment.id) {
           <tr>
-            <td>{{ shipment.trackingNumber }}</td>
+            <td><a [routerLink]="[shipment.id]" class="tracking-link">{{ shipment.trackingNumber }}</a></td>
             <td>{{ shipment.origin }} &rarr; {{ shipment.destination }}</td>
             <td>{{ shipment.carrier }}</td>
             <td>{{ shipment.weightKg | number: '1.0-2' }}</td>

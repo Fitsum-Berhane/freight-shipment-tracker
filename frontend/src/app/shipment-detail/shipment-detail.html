@@ -1,0 +1,62 @@
+<section class="detail">
+  <a routerLink="/" class="back">&larr; Back to shipments</a>
+
+  @if (loading()) {
+    <div class="loading">
+      <span class="spinner"></span>
+      Loading&hellip;
+    </div>
+  } @else if (error()) {
+    <div class="load-error">{{ error() }}</div>
+  } @else if (shipment(); as s) {
+    <header class="detail-header">
+      <h2>{{ s.trackingNumber }}</h2>
+      <span [class]="badgeClass(s.status)">{{ s.status }}</span>
+    </header>
+
+    <dl class="detail-grid">
+      <div>
+        <dt>Route</dt>
+        <dd>{{ s.origin }} &rarr; {{ s.destination }}</dd>
+      </div>
+      <div>
+        <dt>Carrier</dt>
+        <dd>{{ s.carrier }}</dd>
+      </div>
+      <div>
+        <dt>Weight</dt>
+        <dd>{{ s.weightKg | number: '1.0-2' }} kg</dd>
+      </div>
+      <div>
+        <dt>Estimated delivery</dt>
+        <dd>
+          @if (s.estimatedDelivery) {
+            {{ s.estimatedDelivery | date: 'mediumDate' }}
+          } @else {
+            &mdash;
+          }
+        </dd>
+      </div>
+      <div>
+        <dt>Created</dt>
+        <dd>{{ s.createdAt | date: 'medium' }}</dd>
+      </div>
+    </dl>
+
+    <h3>Status history</h3>
+    @if (history().length === 0) {
+      <p class="empty">No history recorded.</p>
+    } @else {
+      <ol class="timeline">
+        @for (entry of history(); track entry.changedAt) {
+          <li>
+            <span [class]="badgeClass(entry.status)">{{ entry.status }}</span>
+            <span class="timeline-date">{{ entry.changedAt | date: 'medium' }}</span>
+          </li>
+        }
+      </ol>
+    }
+
+    <a [routerLink]="['/', s.id, 'edit']" class="edit-link">Edit shipment</a>
+  }
+</section>

@@ -67,4 +67,11 @@ public class ShipmentsController : ControllerBase
         var deleted = await _service.DeleteAsync(id);
         return deleted ? NoContent() : NotFound();
     }
+
+    [HttpGet("{id:int}/history")]
+    public async Task<ActionResult<List<StatusHistoryResponse>>> GetHistory(int id)
+    {
+        var history = await _service.GetStatusHistoryAsync(id);
+        return history is null ? NotFound() : Ok(history);
+    }
 }

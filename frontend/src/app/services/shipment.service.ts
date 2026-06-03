@@ -7,6 +7,7 @@ import {
   CreateShipmentRequest,
   UpdateShipmentRequest,
   UpdateStatusRequest,
+  StatusHistoryEntry,
 } from '../models/shipment';
 
 export interface ShipmentFilters {
@@ -52,5 +53,9 @@ export class ShipmentService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  getStatusHistory(id: number): Observable<StatusHistoryEntry[]> {
+    return this.http.get<StatusHistoryEntry[]>(`${this.baseUrl}/${id}/history`);
   }
 }

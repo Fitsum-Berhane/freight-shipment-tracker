@@ -11,4 +11,5 @@ public interface IShipmentRepository
     Task DeleteAsync(Shipment shipment);
     Task<bool> TrackingNumberExistsAsync(string trackingNumber);
     Task<int> CountAsync();
+    Task<List<ShipmentStatusHistory>> GetStatusHistoryAsync(int shipmentId);
 }

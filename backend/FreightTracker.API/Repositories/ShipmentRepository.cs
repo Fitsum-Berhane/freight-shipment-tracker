@@ -66,4 +66,12 @@ public class ShipmentRepository : IShipmentRepository
     {
         return await _context.Shipments.CountAsync();
     }
+
+    public async Task<List<ShipmentStatusHistory>> GetStatusHistoryAsync(int shipmentId)
+    {
+        return await _context.StatusHistory
+            .Where(h => h.ShipmentId == shipmentId)
+            .OrderBy(h => h.ChangedAt)
+            .ToListAsync();
+    }
 }

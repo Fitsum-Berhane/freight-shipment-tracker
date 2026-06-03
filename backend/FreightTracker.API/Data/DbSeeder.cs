@@ -21,7 +21,11 @@ public static class DbSeeder
                 WeightKg = 1200.5m,
                 Status = ShipmentStatus.Pending,
                 EstimatedDelivery = now.AddDays(12),
-                CreatedAt = now.AddDays(-2)
+                CreatedAt = now.AddDays(-2),
+                StatusHistory =
+                {
+                    new ShipmentStatusHistory { Status = ShipmentStatus.Pending, ChangedAt = now.AddDays(-2) },
+                }
             },
             new Shipment
             {
@@ -32,7 +36,12 @@ public static class DbSeeder
                 WeightKg = 845.0m,
                 Status = ShipmentStatus.InTransit,
                 EstimatedDelivery = now.AddDays(5),
-                CreatedAt = now.AddDays(-6)
+                CreatedAt = now.AddDays(-6),
+                StatusHistory =
+                {
+                    new ShipmentStatusHistory { Status = ShipmentStatus.Pending, ChangedAt = now.AddDays(-6) },
+                    new ShipmentStatusHistory { Status = ShipmentStatus.InTransit, ChangedAt = now.AddDays(-5) },
+                }
             },
             new Shipment
             {
@@ -43,7 +52,13 @@ public static class DbSeeder
                 WeightKg = 320.75m,
                 Status = ShipmentStatus.Delivered,
                 EstimatedDelivery = now.AddDays(-1),
-                CreatedAt = now.AddDays(-9)
+                CreatedAt = now.AddDays(-9),
+                StatusHistory =
+                {
+                    new ShipmentStatusHistory { Status = ShipmentStatus.Pending, ChangedAt = now.AddDays(-9) },
+                    new ShipmentStatusHistory { Status = ShipmentStatus.InTransit, ChangedAt = now.AddDays(-7) },
+                    new ShipmentStatusHistory { Status = ShipmentStatus.Delivered, ChangedAt = now.AddDays(-1) },
+                }
             },
             new Shipment
             {
@@ -54,7 +69,12 @@ public static class DbSeeder
                 WeightKg = 2050.0m,
                 Status = ShipmentStatus.Cancelled,
                 EstimatedDelivery = null,
-                CreatedAt = now.AddDays(-4)
+                CreatedAt = now.AddDays(-4),
+                StatusHistory =
+                {
+                    new ShipmentStatusHistory { Status = ShipmentStatus.Pending, ChangedAt = now.AddDays(-4) },
+                    new ShipmentStatusHistory { Status = ShipmentStatus.Cancelled, ChangedAt = now.AddDays(-3) },
+                }
             }
         );
 

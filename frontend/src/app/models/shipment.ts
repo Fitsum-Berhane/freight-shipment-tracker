@@ -37,6 +37,11 @@ export interface UpdateStatusRequest {
   status: ShipmentStatus;
 }
 
+export interface StatusHistoryEntry {
+  status: ShipmentStatus;
+  changedAt: string;
+}
+
 export const ALLOWED_TRANSITIONS: Record<ShipmentStatus, ShipmentStatus[]> = {
   [ShipmentStatus.Pending]: [ShipmentStatus.InTransit, ShipmentStatus.Cancelled],
   [ShipmentStatus.InTransit]: [ShipmentStatus.Delivered, ShipmentStatus.Cancelled],

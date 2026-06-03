@@ -11,4 +11,5 @@ public interface IShipmentService
     Task<ShipmentResponse?> UpdateAsync(int id, UpdateShipmentRequest request);
     Task<ShipmentResponse?> UpdateStatusAsync(int id, ShipmentStatus newStatus);
     Task<bool> DeleteAsync(int id);
+    Task<List<StatusHistoryResponse>?> GetStatusHistoryAsync(int id);
 }
